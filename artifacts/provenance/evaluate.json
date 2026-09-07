@@ -2,13 +2,13 @@
   "config_sha256": "061461722b1194234f655b232bf531615e72b930637fdeec0aa39268cc0a11a0",
   "inputs": {
     "data/processed/features.csv": "67bc92ef38a7b2a8d132dce245f06a2249e9735b316203601424d6a1e567bbe8",
-    "models/v1-2771746c21f7/model.joblib": "5bd28389ba60932f3e349d6b04e5366f067b5a407fbe4520b06dd99892e2ee96"
+    "models/v4-2771746c21f7/model.joblib": "e8a7e2a6dfad19b4763d042694be00c4a72c234585579f4b3f8555110283fca4"
   },
   "outputs": {
-    "artifacts/evaluation/v1-2771746c21f7/test_metrics.json": "6ea595bb24a8963b86b5ab5e772ac34baf4c89a0fee58f254f7c9b5a4d5e4d0a"
+    "artifacts/evaluation/v4-2771746c21f7/test_metrics.json": "28e74e083c02dc1743244a891a948099c1411e088cbfa905517e29ad2f18c1e5"
   },
   "python": "3.12.3",
   "source_sha256": "26edb7c076f89fa584d45f638b4e0f1d6bb0c0b1e0a54636e020f0d2b2969c9f",
   "stage": "evaluate",
-  "utc": "2026-09-07T15:34:29.859921+00:00"
+  "utc": "2026-09-07T18:05:45.385315+00:00"
 }

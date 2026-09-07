@@ -4,12 +4,12 @@
     "data/processed/features.csv": "67bc92ef38a7b2a8d132dce245f06a2249e9735b316203601424d6a1e567bbe8"
   },
   "outputs": {
-    "artifacts/model_comparison.csv": "fd33d98ef56ab49bd22a685d6301480832e2eb6166df152309dfa679dd2a71fb",
-    "artifacts/selection.json": "a67dff31e5c2fb6e136960a5abb1461e6d3815a361707bddce6fd0b67a21143e",
-    "models/v1-2771746c21f7/model.joblib": "5bd28389ba60932f3e349d6b04e5366f067b5a407fbe4520b06dd99892e2ee96"
+    "artifacts/model_comparison.csv": "52c5baf4fc122b4321051a2a38a2ae958d54571a1d43bc3bbea1ca9ad826f1ec",
+    "artifacts/selection.json": "3774b6df08da6f131a1964a17a0f8bfc0824e296dfa5a45a5f3f1bdda0b490ba",
+    "models/v4-2771746c21f7/model.joblib": "e8a7e2a6dfad19b4763d042694be00c4a72c234585579f4b3f8555110283fca4"
   },
   "python": "3.12.3",
   "source_sha256": "26edb7c076f89fa584d45f638b4e0f1d6bb0c0b1e0a54636e020f0d2b2969c9f",
   "stage": "train",
-  "utc": "2026-09-07T15:32:30.242366+00:00"
+  "utc": "2026-09-07T18:03:28.922368+00:00"
 }

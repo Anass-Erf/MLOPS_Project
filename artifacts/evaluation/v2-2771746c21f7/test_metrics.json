@@ -1,0 +1,35 @@
+{
+  "by_site": {
+    "marrakech": {
+      "mae": 0.13240492364000125,
+      "r2": 0.14572530859109945,
+      "rmse": 0.1875820062692932
+    },
+    "meknes": {
+      "mae": 0.15102413924047908,
+      "r2": 0.6238663911821366,
+      "rmse": 0.19683274807471082
+    },
+    "settat": {
+      "mae": 0.13717030598557778,
+      "r2": 0.5890405721333343,
+      "rmse": 0.18102439408273435
+    }
+  },
+  "dataset_sha256": "67bc92ef38a7b2a8d132dce245f06a2249e9735b316203601424d6a1e567bbe8",
+  "interpretation": "Agreement with a modeled proxy, not field accuracy",
+  "metrics": {
+    "mae": 0.14019978962201937,
+    "r2": 0.6250795166383005,
+    "rmse": 0.18859124320752263
+  },
+  "model_sha256": "cd46ed7fd423555a33f03c46d432e10012ba345d3f949d06da6d2bd95bff9825",
+  "model_type": "gradient_boosting",
+  "model_version": "v2-2771746c21f7",
+  "persistence_metrics": {
+    "mae": 0.02739595270414442,
+    "r2": 0.9623870103962692,
+    "rmse": 0.05973389940785803
+  },
+  "test_rows": 1074
+}
