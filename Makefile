@@ -4,7 +4,7 @@ export OMP_NUM_THREADS = 1
 export OPENBLAS_NUM_THREADS = 1
 export MPLCONFIGDIR = /tmp/cws-matplotlib
 
-.PHONY: install data offline preprocess features train evaluate promote pipeline reports notebooks test lint api docker mlflow monitor example demo-request
+.PHONY: install data offline preprocess features train evaluate promote pipeline reports notebooks test lint api ui docker mlflow monitor example demo-request
 
 install:
 	python3 -m venv .venv
@@ -54,11 +54,14 @@ test:
 	$(PYTHON) -m pytest -q
 
 lint:
-	$(PYTHON) -m ruff check src tests monitoring
-	$(PYTHON) -m ruff format --check src tests monitoring
+	$(PYTHON) -m ruff check src tests monitoring ui
+	$(PYTHON) -m ruff format --check src tests monitoring ui
 
 api:
 	$(PYTHON) -m uvicorn src.api.main:app --host 0.0.0.0 --port 8000
+
+ui:
+	$(PYTHON) -m streamlit run ui/app.py --server.address localhost --server.port 8501 --browser.gatherUsageStats false
 
 docker:
 	docker build -t crop-water-stress-api .

@@ -254,6 +254,61 @@ requiring today's observations. Invalid or out-of-season requests return 422.
 Missing/corrupt artifacts produce 503 readiness/prediction responses; application
 import remains possible without a model for CI.
 
+## User Interface
+
+The single-page Streamlit client keeps serving in the existing API:
+
+```text
+Streamlit UI
+    ↓ HTTP POST /predict
+FastAPI /predict
+    ↓
+Production model
+```
+
+Install the UI dependency in the existing environment (once):
+
+```bash
+.venv/bin/python -m pip install -r requirements.txt
+```
+
+Run from the project root. Terminal 1:
+
+```bash
+make api
+```
+
+Terminal 2:
+
+```bash
+make ui
+```
+
+Open [http://localhost:8501](http://localhost:8501).
+
+1. Confirm **API: Available**, then click **Load Example**.
+2. Review Wheat / Marrakech / 30 days and optionally edit the weather history table.
+3. Click **Predict Water Stress**.
+4. Inspect the score, API-provided stress level, forecast date and model version.
+5. Expand **Advanced — View API Request** to explain the generated API contract.
+
+The example reads `artifacts/example_request.json` directly and works offline with
+the local API and existing production model; it never contacts NASA. **Upload JSON**
+accepts another request under the same schema. Crop/site choices and validation reuse
+the API schemas. The full 30-day history is submitted, including table edits; dashboard
+averages are for display only. Changing inputs clears the previous result. FastAPI
+continues to enforce the trained scenario and active-season checks.
+
+The client never loads a model or computes features/predictions. Results describe a
+modeled proxy, not field measurements or irrigation advice. If the API is stopped,
+start `make api` and click **Refresh status**. A missing production model must be
+resolved in the existing serving setup; the UI does not train or promote models.
+
+For an API at another address, run
+`CWS_API_URL=http://localhost:8000 make ui`. Two terminals keep startup and shutdown
+explicit: use Ctrl+C in each. The existing API-only Docker/Compose setup is unchanged;
+you can also run `make ui` against the API container on port 8000.
+
 ## 10. Docker
 
 Train, evaluate and promote first; the build fails without a production model.
