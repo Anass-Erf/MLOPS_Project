@@ -1,0 +1,306 @@
+{
+  "crop": "wheat",
+  "history": [
+    {
+      "date": "2022-10-17",
+      "humidity": 39.76,
+      "precipitation": 0.01,
+      "solar_radiation": 16.4,
+      "temperature": 24.7,
+      "temperature_max": 32.59,
+      "temperature_min": 17.8,
+      "wind_speed": 2.52
+    },
+    {
+      "date": "2022-10-18",
+      "humidity": 37.41,
+      "precipitation": 0.0,
+      "solar_radiation": 15.24,
+      "temperature": 25.06,
+      "temperature_max": 32.46,
+      "temperature_min": 20.25,
+      "wind_speed": 2.02
+    },
+    {
+      "date": "2022-10-19",
+      "humidity": 37.42,
+      "precipitation": 0.0,
+      "solar_radiation": 17.58,
+      "temperature": 24.43,
+      "temperature_max": 32.87,
+      "temperature_min": 18.3,
+      "wind_speed": 1.91
+    },
+    {
+      "date": "2022-10-20",
+      "humidity": 39.7,
+      "precipitation": 0.0,
+      "solar_radiation": 17.33,
+      "temperature": 23.77,
+      "temperature_max": 32.48,
+      "temperature_min": 17.34,
+      "wind_speed": 2.4
+    },
+    {
+      "date": "2022-10-21",
+      "humidity": 37.16,
+      "precipitation": 0.0,
+      "solar_radiation": 18.69,
+      "temperature": 23.55,
+      "temperature_max": 32.57,
+      "temperature_min": 17.04,
+      "wind_speed": 2.28
+    },
+    {
+      "date": "2022-10-22",
+      "humidity": 33.63,
+      "precipitation": 0.0,
+      "solar_radiation": 18.22,
+      "temperature": 23.15,
+      "temperature_max": 31.88,
+      "temperature_min": 16.72,
+      "wind_speed": 2.4
+    },
+    {
+      "date": "2022-10-23",
+      "humidity": 31.38,
+      "precipitation": 0.0,
+      "solar_radiation": 17.01,
+      "temperature": 22.18,
+      "temperature_max": 31.37,
+      "temperature_min": 15.59,
+      "wind_speed": 2.28
+    },
+    {
+      "date": "2022-10-24",
+      "humidity": 26.81,
+      "precipitation": 0.0,
+      "solar_radiation": 16.48,
+      "temperature": 23.17,
+      "temperature_max": 31.88,
+      "temperature_min": 16.23,
+      "wind_speed": 2.57
+    },
+    {
+      "date": "2022-10-25",
+      "humidity": 28.97,
+      "precipitation": 0.0,
+      "solar_radiation": 14.85,
+      "temperature": 23.51,
+      "temperature_max": 31.84,
+      "temperature_min": 17.69,
+      "wind_speed": 2.66
+    },
+    {
+      "date": "2022-10-26",
+      "humidity": 26.44,
+      "precipitation": 0.0,
+      "solar_radiation": 16.98,
+      "temperature": 24.5,
+      "temperature_max": 32.52,
+      "temperature_min": 18.63,
+      "wind_speed": 2.18
+    },
+    {
+      "date": "2022-10-27",
+      "humidity": 26.51,
+      "precipitation": 0.0,
+      "solar_radiation": 18.38,
+      "temperature": 23.08,
+      "temperature_max": 32.2,
+      "temperature_min": 16.0,
+      "wind_speed": 1.72
+    },
+    {
+      "date": "2022-10-28",
+      "humidity": 23.42,
+      "precipitation": 0.0,
+      "solar_radiation": 17.8,
+      "temperature": 22.48,
+      "temperature_max": 31.6,
+      "temperature_min": 14.91,
+      "wind_speed": 1.76
+    },
+    {
+      "date": "2022-10-29",
+      "humidity": 24.51,
+      "precipitation": 0.0,
+      "solar_radiation": 13.97,
+      "temperature": 22.91,
+      "temperature_max": 30.31,
+      "temperature_min": 16.86,
+      "wind_speed": 2.18
+    },
+    {
+      "date": "2022-10-30",
+      "humidity": 27.48,
+      "precipitation": 0.0,
+      "solar_radiation": 15.69,
+      "temperature": 22.51,
+      "temperature_max": 30.61,
+      "temperature_min": 17.56,
+      "wind_speed": 1.49
+    },
+    {
+      "date": "2022-10-31",
+      "humidity": 27.65,
+      "precipitation": 0.0,
+      "solar_radiation": 17.39,
+      "temperature": 21.93,
+      "temperature_max": 29.78,
+      "temperature_min": 15.8,
+      "wind_speed": 1.99
+    },
+    {
+      "date": "2022-11-01",
+      "humidity": 34.79,
+      "precipitation": 0.0,
+      "solar_radiation": 12.01,
+      "temperature": 21.46,
+      "temperature_max": 29.87,
+      "temperature_min": 17.08,
+      "wind_speed": 1.97
+    },
+    {
+      "date": "2022-11-02",
+      "humidity": 36.17,
+      "precipitation": 0.0,
+      "solar_radiation": 14.69,
+      "temperature": 20.85,
+      "temperature_max": 28.81,
+      "temperature_min": 15.09,
+      "wind_speed": 2.21
+    },
+    {
+      "date": "2022-11-03",
+      "humidity": 39.99,
+      "precipitation": 0.0,
+      "solar_radiation": 17.04,
+      "temperature": 19.8,
+      "temperature_max": 26.92,
+      "temperature_min": 15.3,
+      "wind_speed": 1.71
+    },
+    {
+      "date": "2022-11-04",
+      "humidity": 40.86,
+      "precipitation": 0.0,
+      "solar_radiation": 16.67,
+      "temperature": 19.84,
+      "temperature_max": 27.22,
+      "temperature_min": 15.42,
+      "wind_speed": 1.66
+    },
+    {
+      "date": "2022-11-05",
+      "humidity": 38.96,
+      "precipitation": 0.0,
+      "solar_radiation": 16.81,
+      "temperature": 20.42,
+      "temperature_max": 28.69,
+      "temperature_min": 14.59,
+      "wind_speed": 1.35
+    },
+    {
+      "date": "2022-11-06",
+      "humidity": 42.68,
+      "precipitation": 0.0,
+      "solar_radiation": 16.79,
+      "temperature": 20.64,
+      "temperature_max": 29.3,
+      "temperature_min": 15.17,
+      "wind_speed": 1.63
+    },
+    {
+      "date": "2022-11-07",
+      "humidity": 32.77,
+      "precipitation": 0.0,
+      "solar_radiation": 16.63,
+      "temperature": 20.73,
+      "temperature_max": 29.45,
+      "temperature_min": 14.34,
+      "wind_speed": 2.07
+    },
+    {
+      "date": "2022-11-08",
+      "humidity": 30.47,
+      "precipitation": 0.0,
+      "solar_radiation": 12.92,
+      "temperature": 20.04,
+      "temperature_max": 27.82,
+      "temperature_min": 15.18,
+      "wind_speed": 1.83
+    },
+    {
+      "date": "2022-11-09",
+      "humidity": 35.8,
+      "precipitation": 0.0,
+      "solar_radiation": 13.78,
+      "temperature": 18.14,
+      "temperature_max": 25.3,
+      "temperature_min": 13.24,
+      "wind_speed": 1.56
+    },
+    {
+      "date": "2022-11-10",
+      "humidity": 41.15,
+      "precipitation": 0.0,
+      "solar_radiation": 16.22,
+      "temperature": 18.18,
+      "temperature_max": 26.44,
+      "temperature_min": 13.2,
+      "wind_speed": 1.67
+    },
+    {
+      "date": "2022-11-11",
+      "humidity": 29.57,
+      "precipitation": 0.0,
+      "solar_radiation": 16.31,
+      "temperature": 18.5,
+      "temperature_max": 27.64,
+      "temperature_min": 11.93,
+      "wind_speed": 2.07
+    },
+    {
+      "date": "2022-11-12",
+      "humidity": 25.74,
+      "precipitation": 0.0,
+      "solar_radiation": 15.45,
+      "temperature": 19.87,
+      "temperature_max": 28.68,
+      "temperature_min": 13.07,
+      "wind_speed": 3.32
+    },
+    {
+      "date": "2022-11-13",
+      "humidity": 26.58,
+      "precipitation": 0.0,
+      "solar_radiation": 12.89,
+      "temperature": 19.74,
+      "temperature_max": 27.77,
+      "temperature_min": 13.63,
+      "wind_speed": 2.01
+    },
+    {
+      "date": "2022-11-14",
+      "humidity": 30.05,
+      "precipitation": 0.0,
+      "solar_radiation": 14.03,
+      "temperature": 20.0,
+      "temperature_max": 27.46,
+      "temperature_min": 14.13,
+      "wind_speed": 1.18
+    },
+    {
+      "date": "2022-11-15",
+      "humidity": 32.64,
+      "precipitation": 0.0,
+      "solar_radiation": 13.66,
+      "temperature": 19.08,
+      "temperature_max": 26.97,
+      "temperature_min": 13.53,
+      "wind_speed": 1.91
+    }
+  ],
+  "site_id": "marrakech"
+}

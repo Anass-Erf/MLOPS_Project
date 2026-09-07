@@ -1,0 +1,8 @@
+{
+  "forecast_date": "2022-11-16",
+  "model_version": "v1-2771746c21f7",
+  "prediction": 0.8685826307973173,
+  "stress_level": "high",
+  "target": "next_day_1_minus_Ks_proxy",
+  "unit": "dimensionless (0=no modeled stress, 1=maximum modeled stress)"
+}

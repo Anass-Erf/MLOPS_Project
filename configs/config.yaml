@@ -1,0 +1,52 @@
+seed: 42
+paths:
+  raw: data/raw
+  interim: data/interim/weather.csv
+  processed: data/processed/features.csv
+  artifacts: artifacts
+  models: models
+  monitoring: monitoring
+data:
+  endpoint: https://power.larc.nasa.gov/api/temporal/daily/point
+  start: '2015-01-01'
+  end: '2024-06-30'
+  community: AG
+  parameters: [T2M, T2M_MAX, T2M_MIN, PRECTOTCORR, RH2M, WS2M, ALLSKY_SFC_SW_DWN]
+  sites:
+    - {id: meknes, latitude: 33.89, longitude: -5.55, field_capacity: 0.30, wilting_point: 0.15}
+    - {id: settat, latitude: 33.00, longitude: -7.62, field_capacity: 0.28, wilting_point: 0.14}
+    - {id: marrakech, latitude: 31.63, longitude: -7.99, field_capacity: 0.25, wilting_point: 0.12}
+proxy:
+  crop: wheat
+  sowing_month: 11
+  sowing_day: 15
+  stage_days: [20, 40, 70, 50]
+  kc_initial: 0.30
+  kc_mid: 1.15
+  kc_end: 0.30
+  kc_fallow: 0.25
+  root_depth_m: 1.0
+  depletion_fraction: 0.55
+  rainfall_efficiency: 0.80
+  initial_depletion_fraction: 0.50
+  spinup_days: 365
+features:
+  history_days: 30
+split:
+  train_end: '2021-06-30'
+  validation_end: '2022-06-30'
+models:
+  ridge_alpha: 10.0
+  forest_trees: 160
+  forest_min_samples_leaf: 4
+  boosting_iterations: 200
+  boosting_max_leaf_nodes: 15
+  boosting_learning_rate: 0.05
+tracking:
+  experiment: crop-water-stress-wheat
+  registry_name: crop-water-stress
+monitoring:
+  psi_threshold: 0.20
+  ks_threshold: 0.15
+  mae_ratio_threshold: 1.25
+  min_samples: 30

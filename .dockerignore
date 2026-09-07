@@ -1,0 +1,11 @@
+**
+!requirements-api.txt
+!requirements-lock.txt
+!src/
+!src/**
+!configs/
+!configs/**
+!models/
+!models/**
+**/__pycache__/
+**/*.pyc

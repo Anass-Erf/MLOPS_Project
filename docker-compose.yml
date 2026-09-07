@@ -1,0 +1,11 @@
+services:
+  api:
+    build: .
+    image: crop-water-stress-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - api-events:/app/monitoring
+    restart: unless-stopped
+volumes:
+  api-events:

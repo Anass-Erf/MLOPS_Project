@@ -1,0 +1,18 @@
+{
+  "model_file": "v1-2771746c21f7/model.joblib",
+  "model_type": "gradient_boosting",
+  "model_version": "v1-2771746c21f7",
+  "persistence": {
+    "mae": 0.034439236224455744,
+    "r2": 0.9437222942783051,
+    "rmse": 0.06545412803782129
+  },
+  "registry_version": "1",
+  "sha256": "5bd28389ba60932f3e349d6b04e5366f067b5a407fbe4520b06dd99892e2ee96",
+  "test_used_for_selection": false,
+  "validation_metrics": {
+    "mae": 0.12878910487161976,
+    "r2": 0.6178461152666185,
+    "rmse": 0.17056424214821458
+  }
+}

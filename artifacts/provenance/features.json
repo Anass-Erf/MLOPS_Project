@@ -1,0 +1,15 @@
+{
+  "config_sha256": "061461722b1194234f655b232bf531615e72b930637fdeec0aa39268cc0a11a0",
+  "inputs": {
+    "data/interim/weather.csv": "e8bb00c6cad31fb9fe1988b856f2937936240f6e2a4c7db2fb2f71472af8ee64"
+  },
+  "outputs": {
+    "artifacts/dataset_manifest.json": "79c575e650302d5b6fbccdca39f36c660042a5ee3c80d74c16b5309f3e9b2d5c",
+    "artifacts/proxy_audit.csv": "1ad4fb75ae1a515cd962e5779fb0840a8c5da1ee39dc57db8dc2b1e3f78b7e67",
+    "data/processed/features.csv": "67bc92ef38a7b2a8d132dce245f06a2249e9735b316203601424d6a1e567bbe8"
+  },
+  "python": "3.12.3",
+  "source_sha256": "26edb7c076f89fa584d45f638b4e0f1d6bb0c0b1e0a54636e020f0d2b2969c9f",
+  "stage": "features",
+  "utc": "2026-09-07T15:30:38.038319+00:00"
+}

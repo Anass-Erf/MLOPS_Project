@@ -1,0 +1,145 @@
+{
+  "caveats": "Thresholds are demonstration heuristics, not significance tests. Autocorrelation, seasonality and site mixture affect drift. Historical labels are modeled proxies; live field labels require a join.",
+  "current_rows": 1,
+  "drift_alert": false,
+  "features": {
+    "crop_age": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "doy_cos": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "doy_sin": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "et0": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "field_capacity": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "humidity": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "kc": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "latitude": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "longitude": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "precipitation": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "precipitation_lag1": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "prediction": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "rainfall_30d": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "rainfall_7d": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "root_depth_m": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "solar_radiation": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "taw_mm": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "temperature": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "temperature_7d": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "temperature_max": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "temperature_min": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "temperature_range": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "vpd_kpa": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "water_balance_30d": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "wilting_point": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    },
+    "wind_speed": {
+      "invalid_range": 0,
+      "missing_or_nonfinite": 0,
+      "status": "insufficient_data"
+    }
+  },
+  "invalid_requests": 1,
+  "missing_columns": [],
+  "performance": {
+    "status": "labels_unavailable"
+  },
+  "quality_alert": false,
+  "reference_rows": 537,
+  "scenario": "Actual API events; labels not joined. Group by model/site/season in practice."
+}

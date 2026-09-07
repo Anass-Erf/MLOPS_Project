@@ -1,0 +1,222 @@
+{
+  "caveats": "Thresholds are demonstration heuristics, not significance tests. Autocorrelation, seasonality and site mixture affect drift. Historical labels are modeled proxies; live field labels require a join.",
+  "current_rows": 400,
+  "drift_alert": true,
+  "features": {
+    "crop_age": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.016131284916201118,
+      "missing_or_nonfinite": 0,
+      "psi": 0.003573812996270882,
+      "status": "compared"
+    },
+    "doy_cos": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.01681564245810056,
+      "missing_or_nonfinite": 0,
+      "psi": 0.0020498602138680788,
+      "status": "compared"
+    },
+    "doy_sin": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.016131284916201118,
+      "missing_or_nonfinite": 0,
+      "psi": 0.005320140343149065,
+      "status": "compared"
+    },
+    "et0": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.01972998137802607,
+      "missing_or_nonfinite": 0,
+      "psi": 0.007874193167142048,
+      "status": "compared"
+    },
+    "field_capacity": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.010833333333333334,
+      "missing_or_nonfinite": 0,
+      "psi": 0.0021554821950246447,
+      "status": "compared"
+    },
+    "humidity": {
+      "drift": true,
+      "invalid_range": 0,
+      "ks_statistic": 0.4983278227492114,
+      "missing_or_nonfinite": 8,
+      "psi": 2.6216827701042074,
+      "status": "compared"
+    },
+    "kc": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.01164804469273743,
+      "missing_or_nonfinite": 0,
+      "psi": 0.0034136206900039602,
+      "status": "compared"
+    },
+    "latitude": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.010833333333333334,
+      "missing_or_nonfinite": 0,
+      "psi": 0.0021554821950246447,
+      "status": "compared"
+    },
+    "longitude": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.010833333333333334,
+      "missing_or_nonfinite": 0,
+      "psi": 0.0021554821950246447,
+      "status": "compared"
+    },
+    "precipitation": {
+      "drift": false,
+      "invalid_range": 5,
+      "ks_statistic": 0.01655705631379205,
+      "missing_or_nonfinite": 0,
+      "psi": 0.0014134758221441108,
+      "status": "compared"
+    },
+    "precipitation_lag1": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.009324953445065176,
+      "missing_or_nonfinite": 0,
+      "psi": 0.0017854538663909876,
+      "status": "compared"
+    },
+    "prediction": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.09311452513966481,
+      "missing_or_nonfinite": 0,
+      "psi": 0.14016591042252513,
+      "status": "compared"
+    },
+    "rainfall_30d": {
+      "drift": true,
+      "invalid_range": 0,
+      "ks_statistic": 0.5133519553072625,
+      "missing_or_nonfinite": 0,
+      "psi": 2.493692695350985,
+      "status": "compared"
+    },
+    "rainfall_7d": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.011475791433891993,
+      "missing_or_nonfinite": 0,
+      "psi": 0.002688706976069508,
+      "status": "compared"
+    },
+    "root_depth_m": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.0,
+      "missing_or_nonfinite": 0,
+      "psi": 0.0001864292751235621,
+      "status": "compared"
+    },
+    "solar_radiation": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.016075418994413407,
+      "missing_or_nonfinite": 0,
+      "psi": 0.0030638030228483226,
+      "status": "compared"
+    },
+    "taw_mm": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.010833333333333334,
+      "missing_or_nonfinite": 0,
+      "psi": 0.0021554821950246447,
+      "status": "compared"
+    },
+    "temperature": {
+      "drift": true,
+      "invalid_range": 0,
+      "ks_statistic": 0.7611778398510242,
+      "missing_or_nonfinite": 0,
+      "psi": 3.9492691489386433,
+      "status": "compared"
+    },
+    "temperature_7d": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.017164804469273744,
+      "missing_or_nonfinite": 0,
+      "psi": 0.0045088404727739685,
+      "status": "compared"
+    },
+    "temperature_max": {
+      "drift": true,
+      "invalid_range": 0,
+      "ks_statistic": 0.5945716945996276,
+      "missing_or_nonfinite": 0,
+      "psi": 2.0696305171674556,
+      "status": "compared"
+    },
+    "temperature_min": {
+      "drift": true,
+      "invalid_range": 0,
+      "ks_statistic": 0.7960754189944134,
+      "missing_or_nonfinite": 0,
+      "psi": 4.455081155521222,
+      "status": "compared"
+    },
+    "temperature_range": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.02091247672253259,
+      "missing_or_nonfinite": 0,
+      "psi": 0.005182763791320452,
+      "status": "compared"
+    },
+    "vpd_kpa": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.03086126629422719,
+      "missing_or_nonfinite": 0,
+      "psi": 0.007917839533149644,
+      "status": "compared"
+    },
+    "water_balance_30d": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.02297486033519553,
+      "missing_or_nonfinite": 0,
+      "psi": 0.005171504415275887,
+      "status": "compared"
+    },
+    "wilting_point": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.010833333333333334,
+      "missing_or_nonfinite": 0,
+      "psi": 0.0021554821950246447,
+      "status": "compared"
+    },
+    "wind_speed": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.02884078212290503,
+      "missing_or_nonfinite": 0,
+      "psi": 0.008010132788201865,
+      "status": "compared"
+    }
+  },
+  "missing_columns": [],
+  "performance": {
+    "status": "labels_unavailable"
+  },
+  "quality_alert": true,
+  "reference_rows": 537,
+  "scenario": "SIMULATED feature-space shift with injected invalid/missing inputs; no labels and no performance claims for counterfactual weather."
+}

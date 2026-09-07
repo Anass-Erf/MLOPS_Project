@@ -1,0 +1,51 @@
+{
+  "config_sha256": "061461722b1194234f655b232bf531615e72b930637fdeec0aa39268cc0a11a0",
+  "dataset_sha256": "67bc92ef38a7b2a8d132dce245f06a2249e9735b316203601424d6a1e567bbe8",
+  "features": [
+    "temperature",
+    "temperature_max",
+    "temperature_min",
+    "precipitation",
+    "humidity",
+    "wind_speed",
+    "solar_radiation",
+    "temperature_range",
+    "vpd_kpa",
+    "et0",
+    "rainfall_7d",
+    "rainfall_30d",
+    "temperature_7d",
+    "water_balance_30d",
+    "precipitation_lag1",
+    "doy_sin",
+    "doy_cos",
+    "crop_age",
+    "kc",
+    "latitude",
+    "longitude",
+    "field_capacity",
+    "wilting_point",
+    "root_depth_m",
+    "taw_mm"
+  ],
+  "rows": 4692,
+  "splits": {
+    "test": {
+      "first_target": "2022-11-16",
+      "last_target": "2024-05-12",
+      "rows": 1074
+    },
+    "train": {
+      "first_target": "2016-01-02",
+      "last_target": "2021-05-13",
+      "rows": 3081
+    },
+    "validation": {
+      "first_target": "2021-11-16",
+      "last_target": "2022-05-13",
+      "rows": 537
+    }
+  },
+  "target": "next_day_1_minus_Ks_proxy",
+  "weather_sha256": "e8bb00c6cad31fb9fe1988b856f2937936240f6e2a4c7db2fb2f71472af8ee64"
+}

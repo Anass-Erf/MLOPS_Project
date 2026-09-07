@@ -1,0 +1,15 @@
+{
+  "dataset_rows": 4692,
+  "outlier_counts": {
+    "et0": 20,
+    "humidity": 21,
+    "precipitation": 552,
+    "rainfall_30d": 149,
+    "target": 0,
+    "temperature": 41
+  },
+  "policy": "IQR flags are descriptive only. Valid extremes are retained. No validation/test outcome plots are used in exploration.",
+  "training_rows": 3081,
+  "training_target_mean": 0.3471699011115043,
+  "training_target_zero_fraction": 0.4329763063940279
+}

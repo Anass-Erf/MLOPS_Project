@@ -1,0 +1,19 @@
+{
+  "config_sha256": "061461722b1194234f655b232bf531615e72b930637fdeec0aa39268cc0a11a0",
+  "inputs": {
+    "data/raw/marrakech_e61d787d44274b78.json": "0fd37b04a4d060bfe631735a61bf8434ab3880d61c737ff8bc9935440e10fb72",
+    "data/raw/marrakech_e61d787d44274b78.manifest.json": "9d1a7483d7158cbd5921f761e89d0d6afb9ff91e6b3ffe4cf27db8133512a430",
+    "data/raw/meknes_fc310869bf3c7795.json": "123815ee1b98f6c18d3f4a9c1cee6dc5a45904500a9030aa08a57923de0eb0c5",
+    "data/raw/meknes_fc310869bf3c7795.manifest.json": "83ab49a9d225433e4b75e24c22ab7b8c296f6e81d4a42e36432ef9982305b340",
+    "data/raw/settat_089aaa53dddeefc3.json": "a26f732be97b576335c5cb942ea794e34dab284724d79cda47b2aaf40a192ea7",
+    "data/raw/settat_089aaa53dddeefc3.manifest.json": "ff22e7345fc1dc3b75550c79afd45244a5c6790180aefe87d81611ddb05d917e"
+  },
+  "outputs": {
+    "artifacts/data_quality.json": "3c12b14fdee6c89bd4d5ad6de5d29174d27dc483a1b7c37e1cb0873dde229fca",
+    "data/interim/weather.csv": "e8bb00c6cad31fb9fe1988b856f2937936240f6e2a4c7db2fb2f71472af8ee64"
+  },
+  "python": "3.12.3",
+  "source_sha256": "26edb7c076f89fa584d45f638b4e0f1d6bb0c0b1e0a54636e020f0d2b2969c9f",
+  "stage": "preprocess",
+  "utc": "2026-09-07T15:30:32.931510+00:00"
+}

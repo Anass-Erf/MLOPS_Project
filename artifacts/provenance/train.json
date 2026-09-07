@@ -1,0 +1,15 @@
+{
+  "config_sha256": "061461722b1194234f655b232bf531615e72b930637fdeec0aa39268cc0a11a0",
+  "inputs": {
+    "data/processed/features.csv": "67bc92ef38a7b2a8d132dce245f06a2249e9735b316203601424d6a1e567bbe8"
+  },
+  "outputs": {
+    "artifacts/model_comparison.csv": "fd33d98ef56ab49bd22a685d6301480832e2eb6166df152309dfa679dd2a71fb",
+    "artifacts/selection.json": "a67dff31e5c2fb6e136960a5abb1461e6d3815a361707bddce6fd0b67a21143e",
+    "models/v1-2771746c21f7/model.joblib": "5bd28389ba60932f3e349d6b04e5366f067b5a407fbe4520b06dd99892e2ee96"
+  },
+  "python": "3.12.3",
+  "source_sha256": "26edb7c076f89fa584d45f638b4e0f1d6bb0c0b1e0a54636e020f0d2b2969c9f",
+  "stage": "train",
+  "utc": "2026-09-07T15:32:30.242366+00:00"
+}

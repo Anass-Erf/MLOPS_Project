@@ -1,0 +1,9 @@
+{
+  "aliases": {
+    "candidate": "1",
+    "production": "1"
+  },
+  "experiment": "crop-water-stress-wheat",
+  "finished_runs": 5,
+  "ui_status": 200
+}

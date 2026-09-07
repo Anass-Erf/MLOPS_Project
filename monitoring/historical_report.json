@@ -1,0 +1,236 @@
+{
+  "caveats": "Thresholds are demonstration heuristics, not significance tests. Autocorrelation, seasonality and site mixture affect drift. Historical labels are modeled proxies; live field labels require a join.",
+  "current_rows": 1074,
+  "drift_alert": true,
+  "features": {
+    "crop_age": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.0,
+      "missing_or_nonfinite": 0,
+      "psi": 0.00034490777892814826,
+      "status": "compared"
+    },
+    "doy_cos": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.0,
+      "missing_or_nonfinite": 0,
+      "psi": 0.00034490777892814826,
+      "status": "compared"
+    },
+    "doy_sin": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.0,
+      "missing_or_nonfinite": 0,
+      "psi": 0.00034490777892814826,
+      "status": "compared"
+    },
+    "et0": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.11266294227188083,
+      "missing_or_nonfinite": 0,
+      "psi": 0.1240468370197816,
+      "status": "compared"
+    },
+    "field_capacity": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.0,
+      "missing_or_nonfinite": 0,
+      "psi": 0.0003202540190285867,
+      "status": "compared"
+    },
+    "humidity": {
+      "drift": true,
+      "invalid_range": 0,
+      "ks_statistic": 0.14338919925512103,
+      "missing_or_nonfinite": 0,
+      "psi": 0.24491070163015013,
+      "status": "compared"
+    },
+    "kc": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.0,
+      "missing_or_nonfinite": 0,
+      "psi": 0.00035167456484022554,
+      "status": "compared"
+    },
+    "latitude": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.0,
+      "missing_or_nonfinite": 0,
+      "psi": 0.0003202540190285867,
+      "status": "compared"
+    },
+    "longitude": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.0,
+      "missing_or_nonfinite": 0,
+      "psi": 0.0003202540190285867,
+      "status": "compared"
+    },
+    "precipitation": {
+      "drift": true,
+      "invalid_range": 0,
+      "ks_statistic": 0.164804469273743,
+      "missing_or_nonfinite": 0,
+      "psi": 0.1367679619580247,
+      "status": "compared"
+    },
+    "precipitation_lag1": {
+      "drift": true,
+      "invalid_range": 0,
+      "ks_statistic": 0.16201117318435754,
+      "missing_or_nonfinite": 0,
+      "psi": 0.13263204694106925,
+      "status": "compared"
+    },
+    "prediction": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.13221601489757914,
+      "missing_or_nonfinite": 0,
+      "psi": 0.1711614278554274,
+      "status": "compared"
+    },
+    "rainfall_30d": {
+      "drift": true,
+      "invalid_range": 0,
+      "ks_statistic": 0.17225325884543763,
+      "missing_or_nonfinite": 0,
+      "psi": 0.47874348303533204,
+      "status": "compared"
+    },
+    "rainfall_7d": {
+      "drift": true,
+      "invalid_range": 0,
+      "ks_statistic": 0.20018621973929238,
+      "missing_or_nonfinite": 0,
+      "psi": 0.2270259239235078,
+      "status": "compared"
+    },
+    "root_depth_m": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.0,
+      "missing_or_nonfinite": 0,
+      "psi": 0.0006422617200185636,
+      "status": "compared"
+    },
+    "solar_radiation": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.07541899441340782,
+      "missing_or_nonfinite": 0,
+      "psi": 0.0701151583427058,
+      "status": "compared"
+    },
+    "taw_mm": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.0,
+      "missing_or_nonfinite": 0,
+      "psi": 0.0003202540190285867,
+      "status": "compared"
+    },
+    "temperature": {
+      "drift": true,
+      "invalid_range": 0,
+      "ks_statistic": 0.2132216014897579,
+      "missing_or_nonfinite": 0,
+      "psi": 0.2896726961304278,
+      "status": "compared"
+    },
+    "temperature_7d": {
+      "drift": true,
+      "invalid_range": 0,
+      "ks_statistic": 0.260707635009311,
+      "missing_or_nonfinite": 0,
+      "psi": 0.5076136556818855,
+      "status": "compared"
+    },
+    "temperature_max": {
+      "drift": true,
+      "invalid_range": 0,
+      "ks_statistic": 0.18528864059590316,
+      "missing_or_nonfinite": 0,
+      "psi": 0.21386332249605547,
+      "status": "compared"
+    },
+    "temperature_min": {
+      "drift": true,
+      "invalid_range": 0,
+      "ks_statistic": 0.18808193668528864,
+      "missing_or_nonfinite": 0,
+      "psi": 0.3165003794640405,
+      "status": "compared"
+    },
+    "temperature_range": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.12383612662942271,
+      "missing_or_nonfinite": 0,
+      "psi": 0.100657210779168,
+      "status": "compared"
+    },
+    "vpd_kpa": {
+      "drift": true,
+      "invalid_range": 0,
+      "ks_statistic": 0.18901303538175046,
+      "missing_or_nonfinite": 0,
+      "psi": 0.22147727719258423,
+      "status": "compared"
+    },
+    "water_balance_30d": {
+      "drift": true,
+      "invalid_range": 0,
+      "ks_statistic": 0.17970204841713222,
+      "missing_or_nonfinite": 0,
+      "psi": 0.7060846245401244,
+      "status": "compared"
+    },
+    "wilting_point": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.0,
+      "missing_or_nonfinite": 0,
+      "psi": 0.0003202540190285867,
+      "status": "compared"
+    },
+    "wind_speed": {
+      "drift": false,
+      "invalid_range": 0,
+      "ks_statistic": 0.0297951582867784,
+      "missing_or_nonfinite": 0,
+      "psi": 0.03957010705847558,
+      "status": "compared"
+    }
+  },
+  "missing_columns": [],
+  "performance": {
+    "current": {
+      "mae": 0.14019978962201937,
+      "r2": 0.6250795166383005,
+      "rmse": 0.18859124320752263
+    },
+    "degradation_alert": false,
+    "invalid_or_missing_labels": 0,
+    "mae_ratio": 1.0885997675174004,
+    "reference": {
+      "mae": 0.12878910487161976,
+      "r2": 0.6178461152666184,
+      "rmse": 0.17056424214821458
+    },
+    "status": "compared",
+    "valid_labels": 1074
+  },
+  "quality_alert": false,
+  "reference_rows": 537,
+  "scenario": "Historical held-out test vs validation; genuine weather, modeled labels. Reference predictions precede the train+validation refit."
+}

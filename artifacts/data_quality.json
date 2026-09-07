@@ -1,0 +1,24 @@
+{
+  "duplicates": 0,
+  "end": "2024-06-30",
+  "missing": {
+    "date": 0,
+    "field_capacity": 0,
+    "humidity": 0,
+    "latitude": 0,
+    "longitude": 0,
+    "precipitation": 0,
+    "site_id": 0,
+    "solar_radiation": 0,
+    "temperature": 0,
+    "temperature_max": 0,
+    "temperature_min": 0,
+    "wilting_point": 0,
+    "wind_speed": 0
+  },
+  "radiation_unit": "MJ/m2/day",
+  "rows": 10407,
+  "sites": 3,
+  "start": "2015-01-01",
+  "status": "passed"
+}
