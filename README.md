@@ -1,6 +1,6 @@
 # Prédiction du stress hydrique des cultures
 
-University MLOps project: **next-day regression of a modeled wheat water-stress
+MLOps project: **next-day regression of a modeled wheat water-stress
 index**, using real NASA POWER weather and explicitly assumed soil scenarios in
 Morocco. Modular Python scripts implement ingestion, validation, causal features,
 chronological evaluation, MLflow tracking/registry, FastAPI, Docker and monitoring.
@@ -53,7 +53,7 @@ crop-water-stress-mlops/
 ├── mlruns/                          # SQLite database and MLflow artifacts
 ├── artifacts/                       # Metrics, plots, predictions, provenance
 ├── monitoring/                      # Drift script, HTML/JSON reports, API events
-├── docs/                            # Methodology and professor demo guide
+├── docs/                            # Methodology and demo guide
 ├── .github/workflows/ci.yml
 ├── Dockerfile / docker-compose.yml
 ├── requirements.txt / requirements-lock.txt / requirements-api.txt
@@ -363,7 +363,7 @@ enrichment, leave-location-out validation, rolling seasonal backtests, scenario
 sensitivity and blocked uncertainty estimates. After seeing this test, use new
 holdout data for further model development.
 
-## 15. University demonstration
+## 15. demonstration
 
 Follow [docs/demo.md](docs/demo.md): architecture → assumptions → preprocessing →
 training → MLflow → model version → API → Docker → tests → CI → monitoring.

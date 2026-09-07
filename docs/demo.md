@@ -1,4 +1,4 @@
-# University demonstration
+# demonstration
 
 Before class, run `make pipeline notebooks` online and `make docker`. Keep the real
 raw snapshots/manifests so the demonstration does not depend on NASA availability.

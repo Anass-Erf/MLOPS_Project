@@ -162,4 +162,4 @@ must receive those archived snapshots and manifests from a prior genuine downloa
   invalid values. Labels are required for performance alerts. The deliberately
   perturbed demonstration is unlabeled and not used to estimate real degradation.
 * There is no automated cloud deployment. CI gates code quality, tests and app import;
-  local Docker deployment completes the reproducible university demonstration.
+  local Docker deployment completes the reproducible demonstration.
