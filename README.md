@@ -254,60 +254,98 @@ requiring today's observations. Invalid or out-of-season requests return 422.
 Missing/corrupt artifacts produce 503 readiness/prediction responses; application
 import remains possible without a model for CI.
 
-## User Interface
+## Web Interface
 
-The single-page Streamlit client keeps serving in the existing API:
+The Streamlit client supports **Automatic Weather** and **Manual / File**. Both use
+one prediction/result component and the existing serving contract:
 
 ```text
-Streamlit UI
-    ↓ HTTP POST /predict
-FastAPI /predict
-    ↓
-Production model
+User → Streamlit → request builder → HTTP POST FastAPI /predict → production model
 ```
 
-Install the UI dependency in the existing environment (once):
+Install dependencies once: `.venv/bin/python -m pip install -r requirements.txt`.
+Run from the project root, in two terminals:
 
 ```bash
-.venv/bin/python -m pip install -r requirements.txt
-```
-
-Run from the project root. Terminal 1:
-
-```bash
+# Terminal 1
 make api
 ```
 
-Terminal 2:
-
 ```bash
+# Terminal 2
 make ui
 ```
 
-Open [http://localhost:8501](http://localhost:8501).
+Open [http://localhost:8501](http://localhost:8501). The top status checks `/health`
+and displays the loaded model version. If necessary, start the API and click
+**Refresh status**. Set `CWS_API_URL` to use a different API address.
 
-1. Confirm **API: Available**, then click **Load Example**.
-2. Review Wheat / Marrakech / 30 days and optionally edit the weather history table.
-3. Click **Predict Water Stress**.
-4. Inspect the score, API-provided stress level, forecast date and model version.
-5. Expand **Advanced — View API Request** to explain the generated API contract.
+### Automatic Weather
 
-The example reads `artifacts/example_request.json` directly and works offline with
-the local API and existing production model; it never contacts NASA. **Upload JSON**
-accepts another request under the same schema. Crop/site choices and validation reuse
-the API schemas. The full 30-day history is submitted, including table edits; dashboard
-averages are for display only. Changing inputs clears the previous result. FastAPI
-continues to enforce the trained scenario and active-season checks.
+1. Select **Automatic Weather**.
+2. Choose crop, configured site and **prediction date** (the forecast target date).
+3. Click **Fetch Weather Data**.
+4. Review the source/mode, period, weather summary and **View Historical Weather**.
+5. Expand **Advanced — View API Request** to show the generated full JSON.
+6. Click **Predict Water Stress** and inspect the result.
 
-The client never loads a model or computes features/predictions. Results describe a
-modeled proxy, not field measurements or irrigation advice. If the API is stopped,
-start `make api` and click **Refresh status**. A missing production model must be
-resolved in the existing serving setup; the UI does not train or promote models.
+The default date/site come from the existing example where available: Marrakech,
+16 November 2022. The request builder retrieves the required 30 consecutive days
+from 17 October through 15 November, not the target day's weather. All daily rows
+are sent to FastAPI; summary averages are display-only. Automatic data are read-only.
+Changing the selection invalidates the loaded request and previous prediction.
 
-For an API at another address, run
-`CWS_API_URL=http://localhost:8000 make ui`. Two terminals keep startup and shutdown
-explicit: use Ctrl+C in each. The existing API-only Docker/Compose setup is unchanged;
-you can also run `make ui` against the API container on port 8000.
+`ui/weather.py` reuses `collect_data.collect`, its configured NASA parameters/site
+coordinates, AG community and local solar time (LST), plus the training
+`normalize_payload` function. This preserves variable definitions and units, including
+kWh/m²/day → MJ/m²/day radiation conversion where required. API schemas validate the
+complete normalized request; no model or feature engineering runs in Streamlit.
+
+**Cache/offline behavior:** verified local NASA snapshots are preferred. Their source,
+coordinates, parameters, time standard, requested coverage and SHA-256 are checked,
+and their actual daily data must pass the API contract. If no suitable snapshot exists,
+the existing NASA downloader retrieves the exact window into `data/raw/ui_weather/`,
+with its normal request-addressed filename and manifest. Batch training snapshots are
+never overwritten. New UI snapshots can be reused offline.
+
+**Try NASA POWER first** optionally attempts retrieval before using a broader local
+snapshot. Exact saved requests are still reused under the existing immutable-cache
+policy. If retrieval fails, a suitable verified snapshot is used and visibly labeled
+**Offline cached snapshot**. New downloads are labeled **Live**. With neither valid
+NASA data nor a verified snapshot, the UI reports the problem and suggests
+**Manual / File**. It never changes providers or fabricates weather. The existing
+collector uses bounded timeouts and retries, so a live outage can take a few minutes;
+leave live-first unchecked for the quickest offline demonstration.
+
+Prediction dates cannot be in the future; recent observations may still be unpublished
+or incomplete. The configured historical weather period is displayed, and dates beyond
+it have no established evaluation results. The recorded held-out target period is
+2022-11-16 through 2024-05-12 (`artifacts/dataset_manifest.json`). FastAPI remains
+responsible for enforcing the trained scenario and active wheat season.
+
+### Manual / File
+
+This remains the default, reliable offline workflow:
+
+1. Select **Manual / File** and click **Load Example**.
+2. Review Wheat / Marrakech / 30 days from `artifacts/example_request.json`.
+3. Optionally **Upload JSON** and choose **Use uploaded request**, or edit the
+   **View / Edit Historical Weather** table.
+4. Click **Predict Water Stress**.
+5. Inspect the response and **Advanced — View API Request**.
+
+This mode never contacts NASA and needs only the local API and production model.
+Both modes display the API's score, stress level, forecast date, model version, unit
+and target. This project uses a modeled stress proxy and not a directly measured
+field stress label; it provides no irrigation prescription.
+
+For a university demonstration, show Automatic Weather first using Marrakech and
+16 November 2022: fetch → source/period → weather table → generated JSON → predict.
+Then switch to Manual / File → Load Example → predict to show the reproducible
+fallback. With the original verified snapshot, both modes generate the same request.
+
+Stop each local service with Ctrl+C. The existing API-only Docker/Compose workflow
+is unchanged; `make ui` can also connect to the API container on port 8000.
 
 ## 10. Docker
 
