@@ -23,5 +23,7 @@ jobs:
       - run: python -m ruff check src tests monitoring ui
       - run: python -m ruff format --check src tests monitoring ui
       - run: python -m pytest -q
-      - name: Import app without downloaded data or a trained model
+      - name: Verify committed deployment model and offline snapshots
+        run: python scripts/verify_deployment_assets.py
+      - name: Import app without running the training pipeline
         run: python -c "from src.api.main import app; assert app.title"

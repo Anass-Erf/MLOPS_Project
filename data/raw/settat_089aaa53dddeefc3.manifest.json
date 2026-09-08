@@ -1,0 +1,62 @@
+{
+  "downloaded_utc": "2026-09-07T15:19:45.454549+00:00",
+  "header": {
+    "api": {
+      "name": "POWER Daily API",
+      "version": "v2.9.7"
+    },
+    "end": "20240630",
+    "fill_value": -999.0,
+    "sources": [
+      "SYN1DEG",
+      "MERRA2",
+      "POWER"
+    ],
+    "start": "20150101",
+    "time_standard": "LST",
+    "title": "NASA/POWER Source Native Resolution Daily Data"
+  },
+  "request": {
+    "community": "AG",
+    "end": "20240630",
+    "format": "JSON",
+    "latitude": 33.0,
+    "longitude": -7.62,
+    "parameters": "T2M,T2M_MAX,T2M_MIN,PRECTOTCORR,RH2M,WS2M,ALLSKY_SFC_SW_DWN",
+    "start": "20150101",
+    "time-standard": "LST"
+  },
+  "sha256": "a26f732be97b576335c5cb942ea794e34dab284724d79cda47b2aaf40a192ea7",
+  "source": "NASA POWER",
+  "units": {
+    "ALLSKY_SFC_SW_DWN": {
+      "longname": "All Sky Surface Shortwave Downward Irradiance",
+      "units": "MJ/m^2/day"
+    },
+    "PRECTOTCORR": {
+      "longname": "Precipitation Corrected",
+      "units": "mm/day"
+    },
+    "RH2M": {
+      "longname": "Relative Humidity at 2 Meters",
+      "units": "%"
+    },
+    "T2M": {
+      "longname": "Temperature at 2 Meters",
+      "units": "C"
+    },
+    "T2M_MAX": {
+      "longname": "Temperature at 2 Meters Maximum",
+      "units": "C"
+    },
+    "T2M_MIN": {
+      "longname": "Temperature at 2 Meters Minimum",
+      "units": "C"
+    },
+    "WS2M": {
+      "longname": "Wind Speed at 2 Meters",
+      "units": "m/s"
+    }
+  },
+  "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CT2M_MAX%2CT2M_MIN%2CPRECTOTCORR%2CRH2M%2CWS2M%2CALLSKY_SFC_SW_DWN&community=AG&latitude=33.0&longitude=-7.62&start=20150101&end=20240630&format=JSON&time-standard=LST"
+}

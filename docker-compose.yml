@@ -1,11 +1,40 @@
 services:
   api:
-    build: .
-    image: crop-water-stress-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: api
     ports:
-      - "8000:8000"
+      - "${CWS_BIND_ADDRESS:-0.0.0.0}:${CWS_API_PORT:-8000}:8000"
     volumes:
       - api-events:/app/monitoring
     restart: unless-stopped
+  ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: ui
+    environment:
+      CWS_API_URL: http://api:8000
+    ports:
+      - "${CWS_BIND_ADDRESS:-0.0.0.0}:${CWS_UI_PORT:-8501}:8501"
+    volumes:
+      - weather-cache:/app/data/raw/ui_weather
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+  mlflow:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: tracking
+    ports:
+      - "${CWS_MLFLOW_BIND_ADDRESS:-127.0.0.1}:${CWS_MLFLOW_PORT:-5000}:5000"
+    volumes:
+      - mlflow-data:/mlflow
+    restart: unless-stopped
 volumes:
   api-events:
+  weather-cache:
+  mlflow-data:

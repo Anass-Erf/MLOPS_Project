@@ -1,0 +1,136 @@
+{
+  "config": {
+    "data": {
+      "community": "AG",
+      "end": "2024-06-30",
+      "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point",
+      "parameters": [
+        "T2M",
+        "T2M_MAX",
+        "T2M_MIN",
+        "PRECTOTCORR",
+        "RH2M",
+        "WS2M",
+        "ALLSKY_SFC_SW_DWN"
+      ],
+      "sites": [
+        {
+          "field_capacity": 0.3,
+          "id": "meknes",
+          "latitude": 33.89,
+          "longitude": -5.55,
+          "wilting_point": 0.15
+        },
+        {
+          "field_capacity": 0.28,
+          "id": "settat",
+          "latitude": 33.0,
+          "longitude": -7.62,
+          "wilting_point": 0.14
+        },
+        {
+          "field_capacity": 0.25,
+          "id": "marrakech",
+          "latitude": 31.63,
+          "longitude": -7.99,
+          "wilting_point": 0.12
+        }
+      ],
+      "start": "2015-01-01"
+    },
+    "features": {
+      "history_days": 30
+    },
+    "models": {
+      "boosting_iterations": 200,
+      "boosting_learning_rate": 0.05,
+      "boosting_max_leaf_nodes": 15,
+      "forest_min_samples_leaf": 4,
+      "forest_trees": 160,
+      "ridge_alpha": 10.0
+    },
+    "monitoring": {
+      "ks_threshold": 0.15,
+      "mae_ratio_threshold": 1.25,
+      "min_samples": 30,
+      "psi_threshold": 0.2
+    },
+    "paths": {
+      "artifacts": "artifacts",
+      "interim": "data/interim/weather.csv",
+      "models": "models",
+      "monitoring": "monitoring",
+      "processed": "data/processed/features.csv",
+      "raw": "data/raw"
+    },
+    "proxy": {
+      "crop": "wheat",
+      "depletion_fraction": 0.55,
+      "initial_depletion_fraction": 0.5,
+      "kc_end": 0.3,
+      "kc_fallow": 0.25,
+      "kc_initial": 0.3,
+      "kc_mid": 1.15,
+      "rainfall_efficiency": 0.8,
+      "root_depth_m": 1.0,
+      "sowing_day": 15,
+      "sowing_month": 11,
+      "spinup_days": 365,
+      "stage_days": [
+        20,
+        40,
+        70,
+        50
+      ]
+    },
+    "seed": 42,
+    "split": {
+      "train_end": "2021-06-30",
+      "validation_end": "2022-06-30"
+    },
+    "tracking": {
+      "experiment": "crop-water-stress-wheat",
+      "registry_name": "crop-water-stress"
+    }
+  },
+  "dataset_sha256": "67bc92ef38a7b2a8d132dce245f06a2249e9735b316203601424d6a1e567bbe8",
+  "features": [
+    "temperature",
+    "temperature_max",
+    "temperature_min",
+    "precipitation",
+    "humidity",
+    "wind_speed",
+    "solar_radiation",
+    "temperature_range",
+    "vpd_kpa",
+    "et0",
+    "rainfall_7d",
+    "rainfall_30d",
+    "temperature_7d",
+    "water_balance_30d",
+    "precipitation_lag1",
+    "doy_sin",
+    "doy_cos",
+    "crop_age",
+    "kc",
+    "latitude",
+    "longitude",
+    "field_capacity",
+    "wilting_point",
+    "root_depth_m",
+    "taw_mm"
+  ],
+  "fingerprint": "2771746c21f74703eaf2c8e6709ce19ee09ba9679623a11f440751f1c6fcda09",
+  "model_type": "gradient_boosting",
+  "model_version": "v4-2771746c21f7",
+  "registry_version": "4",
+  "run_id": "b882662ab4554b72bdc958ea3f22b5d8",
+  "source_sha256": "26edb7c076f89fa584d45f638b4e0f1d6bb0c0b1e0a54636e020f0d2b2969c9f",
+  "trained_utc": "2026-09-07T18:03:28.824791+00:00",
+  "validation_metrics": {
+    "mae": 0.12878910487161976,
+    "r2": 0.6178461152666185,
+    "rmse": 0.17056424214821458
+  }
+}

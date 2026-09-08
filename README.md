@@ -205,14 +205,16 @@ python -m src.models.registry --version YOUR_PREVIOUS_EVALUATED_VERSION
 ```
 
 Use only trusted locally produced joblib models. API pointers are relative/portable.
-MLflow's local artifact paths are absolute: rerun the pipeline after moving directories,
-or preserve the original mount path. The default is local tracking; an optional
+MLflow's local artifact paths are absolute: preserve the original mount path when
+migrating history (see Komodo Deployment). The default is local tracking; an optional
 `MLFLOW_TRACKING_URI` needs a properly configured server/artifact store.
 
 ## 8. Git and lightweight data versioning
 
 Git tracks source, configuration, lockfile, notebooks and selected generated reports.
-Raw/processed data, binary models, environments and tracking databases are ignored.
+Bulk raw/processed data, development models, environments and tracking databases are ignored.
+The evaluated production model and three verified NASA snapshots are explicit Git exceptions
+so a clean deployment works without training or live data downloads.
 Snapshot SHA-256 manifests and `artifacts/provenance/*.json` record stage input/output,
 config and source hashes plus Python version. Dataset and model integrity is checked
 before training, evaluation and serving.
@@ -344,25 +346,31 @@ For a university demonstration, show Automatic Weather first using Marrakech and
 Then switch to Manual / File → Load Example → predict to show the reproducible
 fallback. With the original verified snapshot, both modes generate the same request.
 
-Stop each local service with Ctrl+C. The existing API-only Docker/Compose workflow
-is unchanged; `make ui` can also connect to the API container on port 8000.
+Stop each local service with Ctrl+C. Compose runs the API, UI and MLflow together;
+`make ui` can also connect to the API container on port 8000.
 
 ## 10. Docker
 
-Train, evaluate and promote first; the build fails without a production model.
+The repository includes the existing evaluated production release. No training or
+NASA access is needed to start serving. Build validation loads the model, verifies
+its checksum and feature contract, and predicts the saved example.
 
 ```bash
-docker build -t crop-water-stress-api .
-docker run --rm -p 8000:8000 --name crop-water-stress-api crop-water-stress-api
-# Another terminal:
-make demo-request
+# API-only workflow remains supported:
+make docker
+docker run --rm -p 8000:8000 crop-water-stress-api
+# Full stack:
+docker compose up --build -d
+docker compose ps
+docker compose logs --tail=100
+# Stop without deleting persistent data:
+docker compose down
 ```
 
-Or `docker compose up --build -d`, inspect `docker compose ps`, then
-`docker compose down`. Stop an earlier host API before binding port 8000.
-The container runs as a non-root user and checks `/health`. Compose persists API
-events in a named volume. MLflow runs separately with `make mlflow`; it is not a
-serving dependency. Rebuild the image after promoting a different model.
+All three services build from the root Dockerfile (targets `api`, `ui`, `tracking`).
+They run as UID 10001. The API's `/health` checks model readiness; Streamlit waits
+for a healthy API. MLflow is independent of serving. See the deployment section
+below for ports, storage, remote setup and verification.
 
 ## 11. Tests and CI/CD
 
@@ -378,8 +386,8 @@ chronological assignment, model/API parity, bounded inference, artifact tamperin
 API success/error paths and monitoring. Artificial fixtures are restricted to tests
 and never generate scientific results. Tests need no NASA access or trained artifacts.
 
-GitHub Actions installs the locked Python 3.12 dependencies, runs Ruff/pytest and
-imports the app. Local Docker is the deployment demonstration. No paid cloud,
+GitHub Actions installs the locked Python 3.12 dependencies, runs Ruff/pytest,
+verifies release assets and imports the app. Local Docker is the deployment demonstration. No paid cloud,
 automatic remote deployment or unexecuted GitHub run is claimed.
 
 ## 12. Monitoring
@@ -461,9 +469,9 @@ holdout data for further model development.
 Follow [docs/demo.md](docs/demo.md): architecture → assumptions → preprocessing →
 training → MLflow → model version → API → Docker → tests → CI → monitoring.
 
-## Local verification of this deliverable
+## Original pipeline verification
 
-On Python 3.12: **34 tests passed**, Ruff checks passed, both notebooks executed
+At the original pipeline verification on Python 3.12: **34 tests passed**, Ruff checks passed, both notebooks executed
 without cell errors, immutable snapshot reuse and frozen evaluation reuse passed,
 and all recorded stage-output/model-source hashes matched. The Docker image built
 successfully and its container passed health, Swagger, real-request inference parity
@@ -471,3 +479,143 @@ and invalid-input checks. See [API evidence](artifacts/api_verification.json),
 [the actual example response](artifacts/example_response.json), and the monitoring
 HTML reports. The GitHub workflow is supplied; remote Actions execution requires
 publishing this project as your repository root.
+
+## Komodo Deployment
+
+The old Compose file already had `build: .`, but also `image: crop-water-stress-api`.
+The repository has no workflow publishing that image. Komodo's automatic `compose pull` tries the registry
+before building and fails on a clean server. In addition, Git excluded the model,
+and the old stack included neither Streamlit nor MLflow. The new Compose file uses
+build-only services, so Compose generates project-scoped image names. No private
+registry, prebuilt laptop image, startup training, or NASA download is required.
+Builds still need network access to the public Python base image and PyPI.
+
+Configure a **Git repository Compose Stack**, not a Swarm stack:
+
+| Komodo field | Value |
+| --- | --- |
+| Server | Select your intended server; `vh3` was supplied in the deployment request, but cannot be verified from Git |
+| Git provider | `github.com` |
+| Repo | `Anass-Erf/MLOPS_Project` (verified from origin) |
+| Branch | `main` (verified locally) |
+| Run Directory | `.` (repository root) |
+| File Path | `docker-compose.yml` |
+| Run Build (`run_build`) | **true** |
+| Auto Pull (`auto_pull`) | **false** |
+| Auto Update / Poll for Updates | **false** (redeploy on source changes) |
+| Extra Args | none; on older Komodo without Run Build, use `--build` |
+| Registry credentials | none |
+| Environment | none required; optional overrides below |
+
+Keep the Stack/project name stable: it determines named volume names. Clear any
+inline Compose content so Komodo reads the Git file. A private repository requires
+a configured Git account. See [Komodo Stack documentation](https://komo.do/docs/deploy/compose)
+and the [Stack configuration definitions](https://github.com/moghtech/komodo/blob/main/client/core/rs/src/entities/stack.rs)
+for `run_build` and `auto_pull`.
+
+| Service | Built target | Host binding by default | Container endpoint | Persistent volume |
+| --- | --- | --- | --- | --- |
+| FastAPI `api` | `api` | `0.0.0.0:8000` | `http://api:8000` | `api-events` → `/app/monitoring` |
+| Streamlit `ui` | `ui` | `0.0.0.0:8501` | `http://ui:8501` | `weather-cache` → `/app/data/raw/ui_weather` |
+| MLflow `mlflow` | `tracking` | `127.0.0.1:5000` | `http://mlflow:5000` | `mlflow-data` → `/mlflow` |
+
+All service images build locally from source; all use the public `python:3.12-slim`
+base. No service pulls a prebuilt project or MLflow image. UI always uses
+`CWS_API_URL=http://api:8000` in Compose. Health checks use localhost intentionally:
+they probe the service inside its own container. API and MLflow bind 0.0.0.0 inside
+their containers, as does Streamlit.
+
+Optional Komodo Environment values (also in `.env.example`):
+
+```dotenv
+CWS_BIND_ADDRESS=0.0.0.0
+CWS_API_PORT=8000
+CWS_UI_PORT=8501
+CWS_MLFLOW_BIND_ADDRESS=127.0.0.1
+CWS_MLFLOW_PORT=5000
+```
+
+Change host ports if occupied; container ports and the UI API URL stay unchanged.
+Open `http://<server>:8501` and `http://<server>:8000/docs` where the firewall permits.
+MLflow is unauthenticated and bound to server loopback by default. Use an SSH tunnel
+(`ssh -L 5000:127.0.0.1:5000 user@<server>`) then `http://localhost:5000`, or configure
+an authenticated reverse proxy. Set its bind address to a private server address
+only if direct access on that network is intended.
+
+**Release files and offline behavior.** Git now includes the unchanged
+`models/production.json`, `models/v4-2771746c21f7/model.joblib` and `metadata.json`.
+The model SHA-256 is
+`e8a7e2a6dfad19b4763d042694be00c4a72c234585579f4b3f8555110283fca4`, matching the
+existing frozen evaluation. The model is about 400 KB; no retraining occurred.
+Only this version enters the API image. A future release must update the Git and
+Docker allowlists along with its pointer and evaluated artifact.
+
+Three original NASA snapshot/manifest pairs in `data/raw` are included (about
+1.2 MB total), covering the configured historical period at Marrakech, Meknes and
+Settat. They retain their original bytes and checksum manifests. They enter only
+the UI image, outside the mutable weather-cache mount. The UI includes
+`artifacts/example_request.json`; Manual / File → Load Example and Automatic Weather
+→ Marrakech → 16 November 2022 both work offline. New live NASA downloads persist
+in `weather-cache`. For an uncached date, NASA availability is still required;
+failure uses a matching verified snapshot or offers manual mode. Startup never
+fetches NASA. No processed datasets or local `mlruns` enter any image.
+
+**MLflow persistence and existing history.** The server uses SQLite at
+`/mlflow/mlflow.db` and proxied artifact storage at `/mlflow/artifacts`, both in
+`mlflow-data`. A new server starts with empty history; the release's local registry
+version 4 does not imply that the new server already contains that registry entry.
+The API reads its bundled verified model and does not depend on MLflow readiness.
+For training clients inside the network set `MLFLOW_TRACKING_URI=http://mlflow:5000`;
+for local clients using the tunnel set `MLFLOW_TRACKING_URI=http://localhost:5000`.
+New HTTP experiments use the server artifact destination, avoiding laptop file URIs.
+Local `make mlflow` / SQLite behavior is retained.
+
+Existing laptop `mlruns` is untouched and not automatically migrated. Back it up
+with writers stopped, including SQLite and all artifact directories. To retain
+old history on another machine, preserve the absolute artifact paths recorded in
+the database with matching mounts, or perform a separately validated MLflow
+migration. Copying only the SQLite database into the new volume is insufficient.
+Do not retrain merely to move history. Back up `mlflow-data` with MLflow stopped;
+do not use `docker compose down -v` unless intentionally deleting deployment data.
+
+**Monitoring.** API prediction and invalid-input events persist in `api-events`.
+The existing drift tooling and reports remain in the repository. To analyze actual
+server events, export the log from the server checkout and use the existing local
+analysis environment:
+
+```bash
+docker compose cp api:/app/monitoring/events.jsonl /tmp/cws-events.jsonl
+# Run where requirements.txt and the repository reports are available:
+.venv/bin/python -m monitoring.drift --events /tmp/cws-events.jsonl
+```
+
+**Deploy and verify.** Commit and push all changed source files AND the newly
+included model/snapshot files before deploying. In Komodo save the fields above,
+refresh the Git source, then Deploy. Confirm the log builds all three targets and
+all services become healthy. Equivalent server commands from the repository root:
+
+```bash
+docker compose config --quiet
+docker compose build --no-cache
+docker compose up -d --wait --wait-timeout 180
+docker compose ps
+docker compose logs --tail=100
+curl --fail http://localhost:8000/health
+curl --fail http://localhost:8000/docs
+curl --fail http://localhost:8000/predict -H 'Content-Type: application/json' \
+  --data-binary @artifacts/example_request.json
+curl --fail http://localhost:8501/_stcore/health
+curl --fail http://localhost:5000/health
+# Exercise real Streamlit interactions and container-to-container HTTP:
+docker compose exec -T ui python < scripts/smoke_ui.py
+```
+
+Use the overridden ports if applicable. The example predicts approximately
+`0.8685826307973173`, version `v4-2771746c21f7`, forecast `2022-11-16`.
+In the UI check Load Example → Predict Water Stress, then Automatic Weather →
+Fetch Weather Data → Predict Water Stress. Both should return the same score.
+`python scripts/verify_deployment_assets.py` verifies the model, evaluation checksum
+and offline weather coverage in an environment with `requirements.txt` installed.
+
+Local deployment results and the full file inventory are recorded in
+[docs/deployment-verification.md](docs/deployment-verification.md).

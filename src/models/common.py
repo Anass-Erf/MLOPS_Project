@@ -2,6 +2,7 @@
 
 import json
 import os
+from urllib.parse import urlsplit
 
 import mlflow
 import pandas as pd
@@ -39,10 +40,17 @@ def metrics(y, predictions) -> dict:
 
 def setup_tracking(cfg: dict) -> None:
     folder = ROOT / "mlruns"
-    folder.mkdir(exist_ok=True)
     uri = os.environ.get("MLFLOW_TRACKING_URI", f"sqlite:///{folder / 'mlflow.db'}")
+    remote = urlsplit(uri).scheme in {"http", "https"}
+    if not remote:
+        folder.mkdir(exist_ok=True)
     mlflow.set_tracking_uri(uri)
     experiment = cfg["tracking"]["experiment"]
     if mlflow.get_experiment_by_name(experiment) is None:
-        mlflow.create_experiment(experiment, artifact_location=(folder / "artifacts").as_uri())
+        # HTTP tracking lets the server choose its proxied artifact destination.
+        # A client-local file URI cannot be used by a remote MLflow server.
+        if remote:
+            mlflow.create_experiment(experiment)
+        else:
+            mlflow.create_experiment(experiment, artifact_location=(folder / "artifacts").as_uri())
     mlflow.set_experiment(experiment)

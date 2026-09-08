@@ -1,7 +1,8 @@
 # demonstration
 
-Before class, run `make pipeline notebooks` online and `make docker`. Keep the real
-raw snapshots/manifests so the demonstration does not depend on NASA availability.
+For the existing evaluated release, run `docker compose up --build -d`; see
+README → Komodo Deployment. No retraining is required. The steps below demonstrate
+the optional full development lifecycle and will create new training runs.
 
 1. Show README's architecture and `src/`. Explain modular scripts versus notebooks.
 2. Open `docs/methodology.md` and config. Explain real weather, assumed soil/crop
@@ -30,10 +31,12 @@ Field use requires measured labels and local calibration.
 
 Troubleshooting:
 
-* NASA down: `make offline` reuses verified real snapshots. A clean machine needs an archive.
-* Health 503: `make train evaluate promote`, then restart the API.
+* NASA down: `make offline` reuses verified real snapshots. The release includes snapshots for all three configured sites.
+* Health 503: inspect API logs and verify the production pointer/model checksum;
+  restore the evaluated release files and rebuild before considering new training.
 * Port in use: stop the earlier API/container or map `-p 8001:8000` and update curl.
 * Notebook kernel: activate `.venv` or select it in your notebook editor.
 * Sandbox-only TestClient hang: use a normal local terminal; event-loop sockets may
   be restricted in the agent runtime. Do not remove tests to hide the problem.
-* Relocated MLflow artifacts: rerun the pipeline or preserve the original directory path.
+* Relocated MLflow artifacts: preserve the recorded absolute paths or follow the
+  history-migration guidance in README → Komodo Deployment.

@@ -18,3 +18,16 @@ monitoring/*.jsonl
 *.db
 .coverage
 htmlcov/
+
+# Reviewed deployment assets: existing evaluated model and verified NASA snapshots.
+!models/production.json
+!models/v4-2771746c21f7/
+models/v4-2771746c21f7/*
+!models/v4-2771746c21f7/model.joblib
+!models/v4-2771746c21f7/metadata.json
+!data/raw/marrakech_e61d787d44274b78.json
+!data/raw/marrakech_e61d787d44274b78.manifest.json
+!data/raw/meknes_fc310869bf3c7795.json
+!data/raw/meknes_fc310869bf3c7795.manifest.json
+!data/raw/settat_089aaa53dddeefc3.json
+!data/raw/settat_089aaa53dddeefc3.manifest.json
