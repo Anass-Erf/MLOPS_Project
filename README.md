@@ -515,9 +515,9 @@ for `run_build` and `auto_pull`.
 
 | Service | Built target | Host binding by default | Container endpoint | Persistent volume |
 | --- | --- | --- | --- | --- |
-| FastAPI `api` | `api` | `0.0.0.0:8000` | `http://api:8000` | `api-events` → `/app/monitoring` |
-| Streamlit `ui` | `ui` | `0.0.0.0:8501` | `http://ui:8501` | `weather-cache` → `/app/data/raw/ui_weather` |
-| MLflow `mlflow` | `tracking` | `127.0.0.1:5000` | `http://mlflow:5000` | `mlflow-data` → `/mlflow` |
+| FastAPI `api` | `api` | `0.0.0.0:18000` | `http://api:8000` | `api-events` → `/app/monitoring` |
+| Streamlit `ui` | `ui` | `0.0.0.0:18501` | `http://ui:8501` | `weather-cache` → `/app/data/raw/ui_weather` |
+| MLflow `mlflow` | `tracking` | `127.0.0.1:15000` | `http://mlflow:5000` | `mlflow-data` → `/mlflow` |
 
 All service images build locally from source; all use the public `python:3.12-slim`
 base. No service pulls a prebuilt project or MLflow image. UI always uses
@@ -525,20 +525,23 @@ base. No service pulls a prebuilt project or MLflow image. UI always uses
 they probe the service inside its own container. API and MLflow bind 0.0.0.0 inside
 their containers, as does Streamlit.
 
-Optional Komodo Environment values (also in `.env.example`):
+Enter these values in Komodo Environment (also the fallback defaults and `.env.example`):
 
 ```dotenv
 CWS_BIND_ADDRESS=0.0.0.0
-CWS_API_PORT=8000
-CWS_UI_PORT=8501
+API_HOST_PORT=18000
+UI_HOST_PORT=18501
 CWS_MLFLOW_BIND_ADDRESS=127.0.0.1
-CWS_MLFLOW_PORT=5000
+MLFLOW_HOST_PORT=15000
 ```
 
-Change host ports if occupied; container ports and the UI API URL stay unchanged.
-Open `http://<server>:8501` and `http://<server>:8000/docs` where the firewall permits.
+These variables change only host ports. The defaults avoid the occupied host port
+8000; if another selected port is occupied, choose a free host port for that service.
+Remove the old `CWS_API_PORT`, `CWS_UI_PORT`, and `CWS_MLFLOW_PORT` entries;
+those names are no longer used. Container ports and the UI API URL stay unchanged.
+Open `http://<server>:18501` and `http://<server>:18000/docs` where the firewall permits.
 MLflow is unauthenticated and bound to server loopback by default. Use an SSH tunnel
-(`ssh -L 5000:127.0.0.1:5000 user@<server>`) then `http://localhost:5000`, or configure
+(`ssh -L 5000:127.0.0.1:15000 user@<server>`) then `http://localhost:5000`, or configure
 an authenticated reverse proxy. Set its bind address to a private server address
 only if direct access on that network is intended.
 
@@ -600,12 +603,12 @@ docker compose build --no-cache
 docker compose up -d --wait --wait-timeout 180
 docker compose ps
 docker compose logs --tail=100
-curl --fail http://localhost:8000/health
-curl --fail http://localhost:8000/docs
-curl --fail http://localhost:8000/predict -H 'Content-Type: application/json' \
+curl --fail http://localhost:18000/health
+curl --fail http://localhost:18000/docs
+curl --fail http://localhost:18000/predict -H 'Content-Type: application/json' \
   --data-binary @artifacts/example_request.json
-curl --fail http://localhost:8501/_stcore/health
-curl --fail http://localhost:5000/health
+curl --fail http://localhost:18501/_stcore/health
+curl --fail http://localhost:15000/health
 # Exercise real Streamlit interactions and container-to-container HTTP:
 docker compose exec -T ui python < scripts/smoke_ui.py
 ```
