@@ -77,3 +77,50 @@ example:
 
 demo-request:
 	curl --fail-with-body http://localhost:8000/predict -H 'Content-Type: application/json' --data-binary @artifacts/example_request.json
+
+# Optional DataOps tools have a separate environment and generated state.
+DATAOPS_PYTHON ?= .venv-dataops/bin/python
+export CWS_ML_PYTHON ?= $(abspath $(PYTHON))
+export DAGSTER_HOME ?= $(CURDIR)/artifacts/dataops/dagster
+export RUNTIME__DLTHUB_TELEMETRY = false
+
+.PHONY: dataops-install dataops-ingest dataops-dbt dataops-quality dataops-inspect dataops dataops-demo dataops-train dataops-evaluate dataops-test dataops-dbt-docs dagster dataops-dagster-home
+
+dataops-install:
+	python3 -m venv .venv-dataops
+	$(DATAOPS_PYTHON) -m pip install -r requirements-dataops.txt
+	$(DATAOPS_PYTHON) -m pip check
+
+dataops-ingest:
+	$(DATAOPS_PYTHON) -m src.dataops.dlt_pipeline
+
+dataops-dbt:
+	$(DATAOPS_PYTHON) -m src.dataops.cli dbt
+
+dataops-quality:
+	$(DATAOPS_PYTHON) -m src.dataops.cli quality
+
+dataops-inspect:
+	$(DATAOPS_PYTHON) -m src.dataops.cli inspect
+
+dataops-dbt-docs:
+	$(DATAOPS_PYTHON) -m src.dataops.cli dbt --dbt-command docs
+
+dataops-dagster-home:
+	mkdir -p "$(DAGSTER_HOME)"
+	cp configs/dagster.yaml "$(DAGSTER_HOME)/dagster.yaml"
+
+dataops dataops-demo: dataops-dagster-home
+	$(DATAOPS_PYTHON) -m src.dataops.cli demo
+
+dagster: dataops-dagster-home
+	$(DATAOPS_PYTHON) -m dagster dev -m src.dataops.definitions -h 127.0.0.1 -p 3000
+
+dataops-train:
+	$(DATAOPS_PYTHON) -m src.dataops.cli train
+
+dataops-evaluate:
+	$(DATAOPS_PYTHON) -m src.dataops.cli evaluate
+
+dataops-test:
+	$(DATAOPS_PYTHON) -m pytest -q --confcutdir=tests/dataops tests/dataops

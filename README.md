@@ -73,6 +73,173 @@ flowchart LR
   API --> MON[Quality and drift monitoring]
 ```
 
+## DataOps Pipeline
+
+An optional, parallel pathway adds **dlt, DuckDB, dbt, a data contract and
+Dagster**. The existing pipeline, model, API, Streamlit modes, Docker stack and
+Komodo settings retain their behavior. Application startup never runs this workflow.
+
+```mermaid
+flowchart LR
+  NASA[NASA POWER / verified snapshots] --> DLT[dlt]
+  DLT --> RAW[DuckDB raw.raw_weather]
+  RAW --> STG[dbt stg_weather]
+  STG --> MART[dbt ml_weather]
+  MART --> QC[dbt tests + Python data contract]
+  QC --> F[Existing Python features and wheat proxy]
+  F --> TRAIN[Explicit isolated training]
+  TRAIN --> ML[Isolated MLflow candidate + evaluation]
+  DG[Dagster jobs and materialization history] -. orchestrates .-> DLT
+  DG -. orchestrates .-> QC
+  DG -. orchestrates .-> TRAIN
+  ML -. separate release review required .-> PROD[Existing production lifecycle]
+  PROD --> API[FastAPI / Docker]
+  API --> UI[Streamlit]
+  API --> MON[Monitoring]
+```
+
+The dotted release boundary is **manual**: DataOps never promotes or copies its
+candidate into production. Dagster shows the six executable stages from ingestion
+through evaluation, with the existing snapshots as an external source. dbt docs
+show the raw → staging → mart SQL lineage.
+
+Install once using Python 3.12, outside the timed demonstration:
+
+```bash
+make install          # Only if the existing application .venv is not installed
+make dataops-install  # Separate .venv-dataops; does not upgrade .venv
+```
+
+`requirements-dataops.txt` and its independent lock constrain the optional tool
+environment. ML stages execute with the original `.venv/bin/python`, preserving
+the original ML library versions. Override `PYTHON` / `CWS_ML_PYTHON` only when
+your original application interpreter is elsewhere.
+
+### Five-minute offline demonstration
+
+```bash
+make dataops-ingest   # Verify and ingest the three genuine committed NASA snapshots
+make dataops-inspect  # Tables, site counts, dates and snapshot provenance
+make dataops-dbt      # Real dbt build: two models and 35 SQL data tests
+make dataops-quality  # dbt tests + Python contract + exact source comparison; export CSV
+make dataops-demo     # Dagster orchestrates all four stages through Python features
+make dagster         # UI at http://127.0.0.1:3000; Ctrl+C stops it
+```
+
+1. **0:00–0:45:** open one `data/raw/*.manifest.json`; show the NASA request and SHA-256.
+2. **0:45–1:30:** ingest and inspect: 10,407 observations, 3,469 per site.
+3. **1:30–2:30:** run dbt and quality; show passing tests and `quality.json`.
+4. **2:30–3:15:** run `dataops-demo`; it takes roughly 20 seconds on the tested machine.
+5. **3:15–5:00:** open Dagster Assets/Runs, inspect dependencies, successful logs and
+   materializations. Show 4,692 generated feature rows and the separate
+   `train_evaluate_explicit` job. Training is optional and is outside this short demo.
+
+`make dataops` is an alias for `make dataops-demo`. The default uses the full,
+small committed snapshot set (about 1.2 MB), so it preserves spin-up and all three
+chronological splits. No NASA network request is needed. Live acquisition remains
+available through the original collector:
+
+```bash
+.venv-dataops/bin/python -m src.dataops.dlt_pipeline --live
+```
+
+This permits missing configured snapshots to be downloaded; existing immutable
+snapshots are verified and reused, not refreshed or overwritten.
+
+### Tables, contract and ML handoff
+
+Generated state lives in **`artifacts/dataops/`**, ignored by Git:
+
+| Location | Purpose |
+|---|---|
+| `crop_water_stress.duckdb` → `raw.raw_weather` | dlt observations, `site_id`, `observed_on`, NASA variable names, source, snapshot filename/hash, ingestion timestamp |
+| `weather_staging.stg_weather` | dbt strict date/numeric casts, canonical names and retained provenance |
+| `weather_analytics.ml_weather` | Exact 13-column weather/scenario input expected by Python |
+| `weather.csv`, `quality.json` | Approved canonical export, SHA-256 and equivalence result |
+| `features.csv`, `ml_artifacts/` | Existing Python features, proxy labels, chronological splits and receipts |
+| `models/`, `mlruns/` | Isolated demo candidate, SQLite tracking and artifacts |
+| `dagster/`, `dbt_target/`, `dbt_logs/`, `dlt/` | Run history, SQL lineage and tool state |
+
+dlt reuses `normalize_payload` for units and fill values. It validates all source
+records before replacing its raw table, so repeated ingestion does not append
+duplicates. dbt performs strict casting and projection; it never filters bad weather,
+imputes observations or computes temporal ML features. The executable contract is
+[`src/dataops/contract.py`](src/dataops/contract.py), backed by
+[`dbt_project/models/schema.yml`](dbt_project/models/schema.yml).
+
+Rules require the ordered canonical schema, non-null numeric weather, valid dates,
+one row per site/date, known sites, full consecutive configured date coverage,
+the existing `WEATHER_BOUNDS`, minimum ≤ mean ≤ maximum temperature, and exact
+configured coordinates/soil scenarios. Python reuses `validate_weather` and
+`validate_soil`, verifies snapshot provenance, and compares **every canonical
+value** against the original normalized source before publishing the CSV. No new
+scientific thresholds are introduced. On this verification, weather and feature
+CSVs were each byte-for-byte identical to the original pipeline output.
+
+For SQL inspection, `make dataops-inspect` needs no separate DuckDB CLI. If one is
+installed, open `artifacts/dataops/crop_water_stress.duckdb` and run:
+
+```sql
+SELECT table_schema, table_name FROM information_schema.tables;
+SELECT * FROM raw.raw_weather LIMIT 5;
+SELECT * FROM weather_analytics.ml_weather LIMIT 5;
+```
+
+Wrapped equivalents of `dbt debug`, `dbt run` and `dbt test` use the correct
+absolute database path, project/profile directory and configured dates/sites:
+
+```bash
+.venv-dataops/bin/python -m src.dataops.cli dbt --dbt-command debug
+.venv-dataops/bin/python -m src.dataops.cli dbt --dbt-command run
+.venv-dataops/bin/python -m src.dataops.cli dbt --dbt-command test
+make dataops-dbt-docs
+.venv-dataops/bin/dbt docs serve --project-dir dbt_project --profiles-dir dbt_project \
+  --target-path "$PWD/artifacts/dataops/dbt_target" --host 127.0.0.1 --port 8081 --no-browser
+```
+
+### Explicit training and operational boundaries
+
+After `make dataops-demo`, either select Dagster job **`train_evaluate_explicit`**
+or run:
+
+```bash
+make dataops-train
+make dataops-evaluate
+```
+
+These reuse the existing training/evaluation functions, including model selection,
+clipping and frozen evaluation. The worker binds local MLflow storage to
+`artifacts/dataops/mlruns` and uses experiment/registry name
+`crop-water-stress-dataops-demo`, even if a production `MLFLOW_TRACKING_URI` is
+exported. It validates the approved weather hash before executing. Existing
+`models/production.json`, original metrics, MLflow aliases and history are untouched.
+There is no promotion asset or automatic schedule. Materializing all assets without
+explicit training configuration fails at the training guard.
+
+```bash
+make dataops-test     # Optional integration, corruption, provenance and job-safety tests
+make test lint       # Original checks; optional tests skip when tools are not installed
+```
+
+The additional `.github/workflows/dataops.yml` installs both isolated environments,
+runs offline tests and the Dagster demo, and uploads dbt/quality evidence. The original
+CI workflow is unchanged. CI never requests live NASA data or trains a model.
+
+Dockerfile, Compose services/ports/volumes and Komodo configuration are unchanged.
+Dagster runs locally on loopback port **3000** and dbt docs optionally uses **8081**;
+neither requires redeploying the working application. Do not run CLI ingestion/dbt
+alongside an active Dagster run: DuckDB permits a single writer process. Dagster's
+UI run queue is limited to one concurrent run. Keep the generated DataOps folder
+inside the repository when running ML stages, because existing provenance receipts
+use repository-relative paths.
+
+See [verification and file inventory](docs/dataops-verification.md) and
+[review/PR instructions](docs/dataops-pull-request.md). Tool configuration follows
+the [dlt DuckDB adapter](https://dlthub.com/docs/dlt-ecosystem/destinations/duckdb),
+[dbt-duckdb](https://github.com/duckdb/dbt-duckdb),
+[dbt contracts](https://docs.getdbt.com/docs/mesh/govern/model-contracts) and
+[Dagster asset jobs](https://docs.dagster.io/guides/build/jobs/asset-jobs).
+
 ## 3. Installation and configuration
 
 Use Python **3.12**, the tested version. Run from this project directory.

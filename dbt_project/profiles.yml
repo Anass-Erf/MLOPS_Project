@@ -1,0 +1,11 @@
+# No credentials. Use make targets for an absolute database path and isolated logs.
+crop_water_stress:
+  target: local
+  outputs:
+    local:
+      type: duckdb
+      path: "{{ env_var('CWS_DUCKDB_PATH', '../artifacts/dataops/crop_water_stress.duckdb') }}"
+      schema: weather
+      threads: 1
+      settings:
+        threads: 1
