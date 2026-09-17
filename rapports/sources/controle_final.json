@@ -1,0 +1,16 @@
+{
+  "pages_pdf": 38,
+  "figures": 13,
+  "tableaux_numerotes": 28,
+  "champs_tables_dynamiques": 3,
+  "champs_numerotation_legendes": 41,
+  "emplacements_etudiants": 7,
+  "fichiers_preexistants_verifies": 156,
+  "fichiers_preexistants_modifies": [],
+  "date_controle": "2026-09-17",
+  "numerotation_legendes_continue": true,
+  "empreintes_livrables": {
+    "Rapport_Academique_MLOps_DataOps_Stress_Hydrique_Final.docx": "ed2ffab3865ab5144ac9d874caedbf51079eacdf560fc37b53233b74a244f2fb",
+    "Rapport_Academique_MLOps_DataOps_Stress_Hydrique_Final.pdf": "df5d9422f0031dcc5e6660c4c1848e5dbb2887a7a08b3d3353f3c93a3e2920ab"
+  }
+}
