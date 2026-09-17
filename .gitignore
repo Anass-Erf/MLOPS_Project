@@ -1,4 +1,10 @@
 .venv/
+.venv-dataops/
+artifacts/dataops/
+dbt_project/target/
+dbt_project/logs/
+dbt_project/.user.yml
+.dlt/
 __pycache__/
 *.py[cod]
 .pytest_cache/
