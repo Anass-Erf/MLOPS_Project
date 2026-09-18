@@ -1,0 +1,149 @@
+version: 2
+sources:
+- name: nasa
+  schema: raw
+  description: Verified NASA POWER snapshots loaded by dlt; weather values normalized
+    to project units.
+  tables:
+  - name: raw_weather
+models:
+- name: stg_weather
+  description: Typed daily weather and row-level snapshot provenance; no filtering
+    or imputation.
+  columns:
+  - name: date
+    data_type: date
+    tests:
+    - not_null
+  - name: site_id
+    data_type: varchar
+    tests:
+    - not_null
+    - accepted_values:
+        arguments:
+          values:
+          - meknes
+          - settat
+          - marrakech
+  - name: temperature
+    data_type: double
+    tests:
+    - not_null
+  - name: temperature_max
+    data_type: double
+    tests:
+    - not_null
+  - name: temperature_min
+    data_type: double
+    tests:
+    - not_null
+  - name: precipitation
+    data_type: double
+    tests:
+    - not_null
+  - name: humidity
+    data_type: double
+    tests:
+    - not_null
+  - name: wind_speed
+    data_type: double
+    tests:
+    - not_null
+  - name: solar_radiation
+    data_type: double
+    tests:
+    - not_null
+  - name: latitude
+    data_type: double
+    tests:
+    - not_null
+  - name: longitude
+    data_type: double
+    tests:
+    - not_null
+  - name: field_capacity
+    data_type: double
+    tests:
+    - not_null
+  - name: wilting_point
+    data_type: double
+    tests:
+    - not_null
+  - name: source
+    data_type: varchar
+    tests:
+    - not_null
+  - name: snapshot_id
+    data_type: varchar
+    tests:
+    - not_null
+  - name: snapshot_sha256
+    data_type: varchar
+    tests:
+    - not_null
+  - name: ingested_at
+    data_type: timestamptz
+    tests:
+    - not_null
+- name: ml_weather
+  description: 'Canonical weather input to the unchanged causal Python feature/target
+    pipeline. Grain: one configured site per day.'
+  columns:
+  - name: temperature
+    data_type: double
+    tests:
+    - not_null
+  - name: temperature_max
+    data_type: double
+    tests:
+    - not_null
+  - name: temperature_min
+    data_type: double
+    tests:
+    - not_null
+  - name: precipitation
+    data_type: double
+    tests:
+    - not_null
+  - name: humidity
+    data_type: double
+    tests:
+    - not_null
+  - name: wind_speed
+    data_type: double
+    tests:
+    - not_null
+  - name: solar_radiation
+    data_type: double
+    tests:
+    - not_null
+  - name: date
+    data_type: date
+    tests:
+    - not_null
+  - name: site_id
+    data_type: varchar
+    tests:
+    - not_null
+    - accepted_values:
+        arguments:
+          values:
+          - meknes
+          - settat
+          - marrakech
+  - name: latitude
+    data_type: double
+    tests:
+    - not_null
+  - name: longitude
+    data_type: double
+    tests:
+    - not_null
+  - name: field_capacity
+    data_type: double
+    tests:
+    - not_null
+  - name: wilting_point
+    data_type: double
+    tests:
+    - not_null

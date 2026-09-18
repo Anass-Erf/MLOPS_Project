@@ -1,0 +1,66 @@
+{
+  "pulls": {
+    "status": 200,
+    "results": []
+  },
+  "actions": {
+    "status": 200,
+    "results": [
+      {
+        "number": null,
+        "title": null,
+        "name": "Optional DataOps pipeline",
+        "state": null,
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/Anass-Erf/MLOPS_Project/actions/runs/35234911964",
+        "head_sha": "0f3bc509191d5ec178bd94abd7edfc58289e38e5",
+        "created_at": "2026-09-17T14:38:22Z"
+      },
+      {
+        "number": null,
+        "title": null,
+        "name": "Python quality and tests",
+        "state": null,
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/Anass-Erf/MLOPS_Project/actions/runs/35234911963",
+        "head_sha": "0f3bc509191d5ec178bd94abd7edfc58289e38e5",
+        "created_at": "2026-09-17T14:38:22Z"
+      },
+      {
+        "number": null,
+        "title": null,
+        "name": "Python quality and tests",
+        "state": null,
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/Anass-Erf/MLOPS_Project/actions/runs/34293089406",
+        "head_sha": "85f9ace2f315dd49193ddc2b8d8ec2e34a7d61eb",
+        "created_at": "2026-09-09T00:00:07Z"
+      },
+      {
+        "number": null,
+        "title": null,
+        "name": "Python quality and tests",
+        "state": null,
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/Anass-Erf/MLOPS_Project/actions/runs/34177688958",
+        "head_sha": "5fc1fa93a22097bc059db035986bcd9f4a2cee0c",
+        "created_at": "2026-09-08T01:45:04Z"
+      },
+      {
+        "number": null,
+        "title": null,
+        "name": "Python quality and tests",
+        "state": null,
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/Anass-Erf/MLOPS_Project/actions/runs/34177142688",
+        "head_sha": "b9b8d8896dd59025746705bcd0db050f4d314a76",
+        "created_at": "2026-09-08T01:35:09Z"
+      }
+    ]
+  }
+}

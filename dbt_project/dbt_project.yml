@@ -1,0 +1,21 @@
+name: crop_water_stress
+version: '1.0.0'
+config-version: 2
+profile: crop_water_stress
+flags:
+  send_anonymous_usage_stats: false
+model-paths: [models]
+test-paths: [tests]
+models:
+  crop_water_stress:
+    +materialized: table
+    +contract:
+      enforced: true
+    staging:
+      +schema: staging
+    marts:
+      +schema: analytics
+vars:
+  known_sites: [meknes, settat, marrakech]
+  weather_start: '2015-01-01'
+  weather_end: '2024-06-30'

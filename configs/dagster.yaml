@@ -1,0 +1,5 @@
+telemetry:
+  enabled: false
+# DuckDB is a single-process writer. Do not overlap UI-launched runs.
+run_queue:
+  max_concurrent_runs: 1
